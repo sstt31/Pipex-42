@@ -6,7 +6,7 @@
 /*   By: sbadakh <sbadakh@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 22:51:16 by sbadakh           #+#    #+#             */
-/*   Updated: 2024/04/06 22:51:26 by sbadakh          ###   ########.fr       */
+/*   Updated: 2024/04/06 23:06:30 by sbadakh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,3 +99,10 @@ void	pipex(int argc, char *argv[], char *envp[])
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 }
+
+int	main(int argc, char *argv[], char*envp[])
+{
+	pipex(argc, argv, envp);
+	return (0);
+}
+

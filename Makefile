@@ -6,16 +6,15 @@
 #    By: sbadakh <sbadakh@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/06 22:50:55 by sbadakh           #+#    #+#              #
-#    Updated: 2024/04/06 22:50:58 by sbadakh          ###   ########.fr        #
+#    Updated: 2024/04/06 23:07:06 by sbadakh          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME		=	pipex
 
-SRCS	= 	./src/main.c \
-				./src/pipex.c \
-				./src/utils.c \
+SRCS	=./src/pipex.c \
+		./src/utils.c \
 
 HEADER			= ./src/pipex.h
 
