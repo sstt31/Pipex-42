@@ -6,7 +6,7 @@
 /*   By: sbadakh <sbadakh@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 22:51:16 by sbadakh           #+#    #+#             */
-/*   Updated: 2024/04/06 23:06:30 by sbadakh          ###   ########.fr       */
+/*   Updated: 2024/04/07 20:44:36 by sbadakh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	executer(char *cmd, char *envp[])
 {
-	int		it;
+	int		i;
 	char	**command;
 	char	**paths;
 	char	*the_way;
@@ -23,17 +23,17 @@ void	executer(char *cmd, char *envp[])
 	paths = splitting_paths(envp);
 	if (paths == NULL)
 		ft_error("Error: no PATH");
-	it = 0;
-	while (paths[it])
+	i = 0;
+	while (paths[i])
 	{
-		the_way = ft_strjoin_mod(paths[it], '/', command[0]);
+		the_way = ft_strjoin_mod(paths[i], '/', command[0]);
 		if (access(the_way, F_OK) == 0)
 		{
 			if (execve(the_way, command, NULL) == -1)
 				ft_perror("ERROR");
 		}
 		free(the_way);
-		it++;
+		i++;
 	}
 	liberator(command);
 	liberator(paths);
@@ -44,7 +44,7 @@ void	first_command_executing(int *fd, char *argv[], char *envp[])
 {
 	int	f_in;
 
-	f_in = open(argv[1], O_RDONLY);
+	f_in = open(argv[1], O_RDONLY, 0777);
 	if (f_in < 0)
 		ft_perror("ERROR (input file)");
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
@@ -105,4 +105,3 @@ int	main(int argc, char *argv[], char*envp[])
 	pipex(argc, argv, envp);
 	return (0);
 }
-

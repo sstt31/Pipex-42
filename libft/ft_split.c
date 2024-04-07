@@ -6,95 +6,74 @@
 /*   By: sbadakh <sbadakh@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 22:51:16 by sbadakh           #+#    #+#             */
-/*   Updated: 2024/04/06 22:57:27 by sbadakh          ###   ########.fr       */
+/*   Updated: 2024/04/07 20:36:52 by sbadakh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**mem_eraser(char **res)
+int	num_of_strings(char *str, char c)
 {
-	unsigned int	i;
+	int	i;
+	int	n_words;
 
+	n_words = 0;
 	i = 0;
-	while (res[i])
+	if (str[0] && str[0] != c)
+		n_words++;
+	while (str[i])
 	{
-		free(res[i]);
+		if (str[i] == c && (str[i + 1] != c && str[i + 1] != 0))
+			n_words++;
 		i++;
 	}
-	free(res);
-	return (NULL);
+	return (n_words);
 }
 
-static int	quant_str(char const *s, char sepr)
+char	*str_add(char *str, char c, int *index)
 {
-	unsigned int	i;
-	unsigned int	keychar;
+	int		i;
+	int		length;
+	char	*word;
 
-	if (!s[0])
-		return (0);
+	length = 0;
+	while (str[length] && str[length] != c)
+		length++;
+	word = malloc(sizeof(char) * (length + 1));
+	if (word == NULL)
+		return (NULL);
 	i = 0;
-	keychar = 0;
-	while (s[i])
+	*index = *index + length;
+	while (i < length)
 	{
-		while (s[i] == sepr)
-			i++;
-		if (i > 0 && s[i] && s[i - 1] == sepr)
-			keychar++;
-		if (s[i])
-			i++;
+		word[i] = str[i];
+		i++;
 	}
-	if (s[0] != sepr)
-		keychar++;
-	return (keychar);
-}
-
-static int	len_str(char const *s, unsigned int *beg, char sepr)
-{
-	int	len;
-
-	len = 0;
-	while (s[*beg])
-	{
-		while (s[*beg] == sepr)
-			(*beg)++;
-		len++;
-		while (s[*beg] != sepr)
-		{
-			(*beg)++;
-			if (s[*beg] == sepr || s[*beg] == '\0')
-				return (len);
-			len++;
-		}
-	}
-	return (0);
+	word[i] = 0;
+	return (word);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char			**res;
-	unsigned int	i;
-	unsigned int	ls;
-	unsigned int	qs;
-	unsigned int	beg;
+	char	*str;
+	char	**array;
+	int		i;
+	int		j;
 
-	if (!s)
+	str = (char *) s;
+	array = (char **) malloc(sizeof(char *) * (num_of_strings(str, c) + 1));
+	if (array == NULL)
 		return (NULL);
 	i = 0;
-	beg = 0;
-	qs = quant_str(s, c);
-	res = (char **)malloc(sizeof(char *) * (qs + 1));
-	if (!res)
-		return (NULL);
-	while (i < qs)
+	j = 0;
+	if (str[i] && str[i] != c)
+		array[j++] = str_add(&str[i], c, &i);
+	while (str[i])
 	{
-		ls = len_str(s, &beg, c);
-		res[i] = (char *)malloc(sizeof(char) * (ls + 1));
-		if (!res[i])
-			return (mem_eraser(res));
-		ft_strlcpy(res[i], &s[beg - ls], ls + 1);
+		if (str[i] == c && (str[i + 1] != c && str[i + 1] != 0))
+			array[j++] = str_add(&str[i + 1], c, &i);
 		i++;
 	}
-	res[i] = 0;
-	return (res);
+	array[j] = NULL;
+	return (array);
 }

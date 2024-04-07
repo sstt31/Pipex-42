@@ -6,7 +6,7 @@
 /*   By: sbadakh <sbadakh@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 22:26:59 by cmero             #+#    #+#             */
-/*   Updated: 2024/04/06 22:12:15 by sbadakh          ###   ########.fr       */
+/*   Updated: 2024/04/07 15:13:50 by sbadakh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	**splitting_paths(char *envp[])
 {
-	int		it;
+	int		i;
 	char	**paths;
 
-	it = 0;
-	while (envp[it])
+	i = 0;
+	while (envp[i])
 	{
-		if (!ft_strncmp(envp[it], "PATH=", 5))
+		if (!ft_strncmp(envp[i], "PATH=", 5))
 		{
-			paths = ft_split(envp[it] + 5, ':');
+			paths = ft_split(envp[i] + 5, ':');
 			return (paths);
 		}
-		it++;
+		i++;
 	}
 	return (NULL);
 }
@@ -55,13 +55,13 @@ char	*ft_strjoin_mod(char const *s1, char connector, char const *s2)
 
 void	liberator(char **free_me)
 {
-	int		it;
+	int		i;
 
-	it = 0;
-	while (free_me[it])
+	i = 0;
+	while (free_me[i])
 	{
-		free(free_me[it]);
-		it++;
+		free(free_me[i]);
+		i++;
 	}
 	free(free_me);
 }

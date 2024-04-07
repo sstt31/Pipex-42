@@ -6,12 +6,14 @@
 /*   By: sbadakh <sbadakh@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 22:51:16 by sbadakh           #+#    #+#             */
-/*   Updated: 2024/04/06 22:53:44 by sbadakh          ###   ########.fr       */
+/*   Updated: 2024/04/07 20:37:07 by sbadakh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
 int	ft_find_min(int a, int b)
+
 {
 	if (a < b)
 		return (a);
